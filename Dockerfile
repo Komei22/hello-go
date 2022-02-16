@@ -1,9 +1,8 @@
-FROM golang:1.16.3-alpine
+FROM golang:1.16.3
 
-WORKDIR /go/src
+WORKDIR /app
 
-COPY ./main.go /go/src/main.go
+RUN git clone --depth=1 https://github.com/Komei22/hello-go.git
+RUN go install github.com/Komei22/hello-go@latest
 
-RUN go mod init server && go build
-
-CMD ["go", "run", "main.go"]
+ENTRYPOINT [ "hello-go" ]
